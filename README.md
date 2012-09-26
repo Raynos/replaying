@@ -1,4 +1,4 @@
-# replaying
+# replaying [![Build Status][1]][2]
 
 Create an object and replay it's methods
 
@@ -51,3 +51,6 @@ function getRealThing(cb) {
  - Raynos
 
 ## MIT Licenced
+
+  [1]: https://secure.travis-ci.org/Raynos/replayer.png
+  [2]: http://travis-ci.org/Raynos/replayer
