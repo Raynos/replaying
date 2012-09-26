@@ -26,8 +26,11 @@ function Replay(methods, getInstance) {
 
     function replay(err, object) {
         error = err
-        data = object
-        methods.forEach(overwriteMethods)
+        if (object) {
+            data = object
+            methods.forEach(overwriteMethods)
+        }
+
         calls.forEach(callOnTarget)
     }
 
