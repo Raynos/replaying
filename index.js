@@ -41,7 +41,7 @@ function Replay(methods, getInstance) {
             return
         }
 
-        Object.getOwnPropertyNames(data).forEach(overwriteMethods)
+        methods.forEach(overwriteMethods)
 
         data[callData.methodName].apply(data, args)
     }
