@@ -6,7 +6,7 @@ Create an object and replay it's methods
 
 Return synchronous interfaces for asynchronously retrieved asynchronous APIs
 
-```
+``` js
 var thing = doThing()
 
 thing.store("boom").collect(function (err, values) {
