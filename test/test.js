@@ -2,9 +2,16 @@ var test = require("tap").test
     , Replay = require("../index")
 
 test("Replay", function (t) {
-    var replay = Replay(["foo", "bar"])
-        , object = replay.object
-        , impl = {
+    var replay = Replay(["foo", "bar"], returnImpl)
+
+    replay.foo("boom").bar(function (value) {
+        console.log("values? :S", arguments)
+        t.equal(value, "boom")
+        t.end()
+    })
+
+    function returnImpl(cb) {
+        var impl = {
             foo: function (s) {
                 this.baz = []
                 this.baz.push(s)
@@ -14,10 +21,8 @@ test("Replay", function (t) {
             }
         }
 
-    object.foo("boom").bar(function (value) {
-        t.equal(value, "boom")
-        t.end()
-    })
-
-    replay(impl)
+        setTimeout(function () {
+            cb(null, impl)
+        }, 1000)
+    }
 })

@@ -7,18 +7,12 @@ thing.store("boom").collect(function (err, values) {
 })
 
 function doThing() {
-    var replay = Replay(["store", "collect"])
-
-    getRealThing(function (realThing) {
-        replay(realThing)
-    })
-
-    return replay.object
+    return Replay(["store", "collect"], getRealThing)
 }
 
 function getRealThing(cb) {
     setTimeout(function () {
-        cb({
+        cb(null, {
             store: store
             , collect: collect
             , values: []

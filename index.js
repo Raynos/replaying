@@ -1,36 +1,54 @@
 module.exports = Replay
 
-function Replay(methods) {
+function Replay(methods, getInstance) {
     var object = {}
         , calls = []
-        , target
+        , error
+        , data
 
     methods.forEach(addTrackerToObject)
 
-    replay.object = object
+    getInstance(replay)
 
-    return replay
+    return object
 
     function addTrackerToObject(methodName) {
-        object[methodName] = function trackCall() {
-            if (target) {
-                target[methodName].apply(target, arguments)
-            } else {
-                calls.push({
-                    methodName: methodName
-                    , args: arguments
-                })
-            }
+        object[methodName] = trackCall
+
+        function trackCall() {
+            calls.push({
+                methodName: methodName
+                , args: arguments
+            })
             return object
         }
     }
 
-    function replay(object) {
-        target = object
-        calls.forEach(callOnTarget, target)
+    function replay(err, object) {
+        error = err
+        data = object
+        calls.forEach(callOnTarget)
     }
 
     function callOnTarget(callData) {
-        this[callData.methodName].apply(this, callData.args)
+        var args = callData.args
+        if (error) {
+            var cb = args[args.length - 1]
+
+            if (typeof cb === "function") {
+                cb(error)
+            }
+            return
+        }
+
+        Object.getOwnPropertyNames(data).forEach(overwriteMethods)
+
+        data[callData.methodName].apply(data, args)
+    }
+
+    function overwriteMethods(prop) {
+        if (typeof data[prop] === "function") {
+            object[prop] = data[prop].bind(data)
+        }
     }
 }
