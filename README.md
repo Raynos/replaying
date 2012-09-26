@@ -52,5 +52,5 @@ function getRealThing(cb) {
 
 ## MIT Licenced
 
-  [1]: https://secure.travis-ci.org/Raynos/replayer.png
-  [2]: http://travis-ci.org/Raynos/replayer
+  [1]: https://secure.travis-ci.org/Raynos/replaying.png
+  [2]: http://travis-ci.org/Raynos/replaying
