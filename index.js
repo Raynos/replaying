@@ -27,6 +27,7 @@ function Replay(methods, getInstance) {
     function replay(err, object) {
         error = err
         data = object
+        methods.forEach(overwriteMethods)
         calls.forEach(callOnTarget)
     }
 
@@ -40,8 +41,6 @@ function Replay(methods, getInstance) {
             }
             return
         }
-
-        methods.forEach(overwriteMethods)
 
         data[callData.methodName].apply(data, args)
     }
