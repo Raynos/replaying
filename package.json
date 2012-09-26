@@ -1,6 +1,6 @@
 {
   "name": "replaying",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Create an object and replay it's methods",
   "keywords": [],
   "author": "Raynos <raynos2@gmail.com>",
